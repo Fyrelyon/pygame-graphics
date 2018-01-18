@@ -1,0 +1,124 @@
+# Imports
+import pygame
+import random
+import math
+
+# Initialize game engine
+pygame.init()
+
+# Window
+SIZE = (750, 600)
+TITLE = "My Awesome Picture"
+screen = pygame.display.set_mode(SIZE)
+pygame.display.set_caption(TITLE)
+
+# Timer
+clock = pygame.time.Clock()
+refresh_rate = 60
+
+# Colors
+r = (255, 0, 0) #Red
+lr = (255, 150, 150) #Light Red
+dr = (150,0,0) #Dark Red
+w = (255, 255, 255) #White
+ns = (10, 25, 75) #Night Sky
+b = (0, 0, 0) #Black
+y = (255, 255, 0) #Yellow
+g = (90, 90, 90) #Gray
+lg = (225, 225, 225) #Light Gray
+gg = (0, 180, 0) #Grass Green
+
+screen.fill(ns)
+
+#Pixels for Umbreon
+UMB0 = [b,b,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns]
+UMB1 = [b,g,b,ns,ns,ns,ns,ns,ns,ns,ns,b,b,b,ns,ns,ns,ns,ns,ns,ns]
+UMB2 = [b,y,y,b,ns,ns,ns,ns,ns,b,b,g,g,b,ns,ns,ns,ns,b,b,b]
+UMB3 = [b,y,g,g,b,ns,ns,ns,b,y,y,g,g,b,ns,ns,ns,b,g,g,b]
+UMB4 = [b,y,g,g,b,b,b,b,g,g,y,y,b,ns,ns,ns,b,y,y,g,b]
+UMB5 = [ns,b,g,g,y,y,g,b,g,g,y,b,ns,ns,ns,b,y,y,y,y,b]
+UMB6 = [ns,ns,b,g,g,y,g,g,g,g,b,ns,ns,ns,ns,b,g,g,y,b,ns]
+UMB7 = [ns,b,g,g,y,g,g,g,b,b,ns,ns,ns,b,b,g,g,g,b,ns,ns]
+UMB8 = [ns,b,y,y,g,g,w,b,g,b,b,b,b,g,g,g,b,b,ns,ns,ns]
+UMB9 = [ns,b,g,g,g,w,r,b,g,b,b,g,g,g,g,b,ns,ns,ns,ns,ns]
+UMB10 = [ns,b,g,g,g,r,b,g,g,b,g,g,g,g,y,g,b,ns,ns,ns,ns]
+UMB11 = [ns,ns,b,g,g,g,g,b,b,g,g,g,g,g,y,g,b,ns,ns,ns,ns]
+UMB12 = [ns,ns,ns,b,b,b,b,g,g,g,g,g,g,b,g,y,g,b,ns,ns,ns]
+UMB13 = [ns,ns,ns,ns,ns,b,g,g,g,g,g,g,g,b,g,b,g,b,ns,ns,ns]
+UMB14 = [ns,ns,ns,ns,ns,b,g,g,b,g,g,b,g,b,b,g,g,b,ns,ns,ns]
+UMB15 = [ns,ns,ns,ns,b,g,g,b,b,g,y,b,b,ns,ns,b,g,b,ns,ns,ns]
+UMB16 = [ns,ns,ns,b,g,g,b,ns,ns,b,y,b,ns,ns,ns,b,g,b,ns,ns,ns]
+UMB17 = [ns,ns,ns,b,b,b,ns,ns,ns,b,g,b,ns,ns,ns,b,b,ns,ns,ns,ns]
+UMB18 = [ns,ns,ns,ns,ns,ns,ns,ns,ns,b,g,b,ns,ns,ns,ns,ns,ns,ns,ns,ns]
+UMB19 = [ns,ns,ns,ns,ns,ns,ns,ns,ns,b,b,ns,ns,ns,ns,ns,ns,ns,ns,ns,ns]
+#Pixels for Pokeball
+PKM0 = [ns,ns,ns,ns,b,b,b,b,ns,ns,ns,ns]
+PKM1 = [ns,ns,b,b,r,dr,dr,dr,b,b,ns,ns]
+PKM2 = [ns,b,r,r,lr,r,dr,dr,dr,dr,b,ns]
+PKM3 = [ns,b,r,lr,w,lr,r,r,dr,dr,b,ns] #<<<
+PKM4 = [b,r,r,r,lr,r,r,r,dr,dr,dr,b]
+PKM5 = [b,r,r,r,r,b,b,dr,dr,dr,dr,b]
+PKM6 = [b,b,r,r,b,w,lg,b,dr,dr,b,b]
+PKM7 = [b,w,b,b,b,lg,lg,b,b,b,lg,b]
+PKM8 = [ns,b,w,w,w,b,b,lg,lg,lg,b,ns]
+PKM9 = [ns,b,w,w,w,w,w,lg,lg,lg,b,ns,ns]
+PKM10 = [ns,ns,b,b,lg,lg,lg,lg,b,b,ns,ns]
+PKM11 = [ns,ns,ns,ns,b,b,b,b,ns,ns,ns,ns]
+
+#draws stars
+def stars(color, position, size):
+        pygame.draw.circle(screen, color, position, size)
+for x in range(0,25):
+    stars(w, (random.randint(0,745), random.randint(0,510)),3)
+
+#draws triangular stars
+def stars2(color):
+        x1 = random.randint(0,745)
+        y1 = random.randint(0,510)
+        pygame.draw.polygon(screen, color, ((x1,y1), (x1+1,y1+1), (x1+2,y1)))
+for x in range(0,25):
+        stars2(w)
+
+#draws the moon
+def moon(color, position, size):
+    pygame.draw.circle(screen, color, position, size)
+moon(lg,(650, 100), 80)
+
+#draws a Pokeball
+for y in range(0,12):
+    PKM_List = [PKM0,PKM1,PKM2,PKM3,PKM4,PKM5,PKM6,PKM7,PKM8,PKM9,PKM10,PKM11]
+    PKM = PKM_List[y]
+    
+    for x in range(0,12):
+        pygame.draw.rect(screen, PKM[x], (x*10+500, y*10+395, 10, 10))
+        
+#draws an Umbreon
+for y in range(0,20):
+    UMBreon_List = [UMB0,UMB1,UMB2,UMB3,UMB4,UMB5,UMB6,UMB7,UMB8,UMB9,UMB10,UMB11,UMB12,UMB13,UMB14,UMB15,UMB16,UMB17,UMB18,UMB19]
+    UMB = UMBreon_List[y]
+    
+    for x in range(0,21):
+        pygame.draw.rect(screen, UMB[x], (x*10+200, y*10+315, 10, 10))
+
+#draws grass
+def grass(color, position):
+    pygame.draw.rect(screen, color, position)
+    
+grass(gg,(0,515,750,85))
+
+# Game loop
+done = False
+while not done:
+    # Event processing
+    ''' for now, we'll just check to see if the X is clicked '''
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+    # Game logic
+    ''' leave this section alone for now '''
+    # Update screen (Actually draw the picture in the window.)
+    pygame.display.flip()
+    # Limit refresh rate of game loop 
+    clock.tick(refresh_rate)
+# Close window and quit
+pygame.quit()
